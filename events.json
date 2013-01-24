@@ -16,6 +16,7 @@
 						"hour" : 3,
 						"minute" : 0
 					},
+					"has-end" : true,
 					"end" : {
 						"hour" : 4,
 						"minute" : 0
@@ -31,6 +32,77 @@
 						"day" : 8
 					}
 				]
+			},
+			{
+				"name" : "Winter Carnival",
+				"begin" : {
+					"month" : 1,
+					"day" : 7
+				},
+				"repeat" : true,
+				"days" : [ ],
+				"day-long" : true,
+				"end" : {
+					"month" : 1,
+					"day" : 8
+				},
+				"except" : [ ]
+			},
+			{
+				"name" : "Crystal's dance class at SDC",
+				"begin" : {
+					"month" : 0,
+					"day" : 31
+				},
+				"repeat" : false,
+				"time" : {
+					"begin" : {
+						"hour" : 4,
+						"minute" : 0
+					},
+					"has-end" : true,
+					"end" : {
+						"hour" : 5,
+						"minute" : 0
+					}
+				},
+				"day-long" : false
+			},
+			{
+				"name" : "Maggie's mathcount competition in middle school",
+				"begin" : {
+					"month" : 0,
+					"day" : 31
+				},
+				"repeat" : false,
+				"time" : {
+					"begin" : {
+						"hour" : 3,
+						"minute" : 30
+					},
+					"has-end" : true,
+					"end" : {
+						"hour" : 5,
+						"minute" : 30
+					}
+				},
+				"day-long" : false
+			},
+			{
+				"name" : "send out agenda for undergrad comittee",
+				"begin" : {
+					"month" : 1,
+					"day" : 1
+				},
+				"repeat" : false,
+				"time" : {
+					"begin" : {
+						"hour" : 1,
+						"minute" : 0
+					},
+					"has-end" : false
+				},
+				"day-long" : false
 			}
 		]
 	}

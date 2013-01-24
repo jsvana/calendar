@@ -1,10 +1,13 @@
 import java.io.*;
+import java.util.ArrayList;
+
 import org.json.*;
 
 public class Storage {
 	private static final String FILENAME = "events.json";
 
 	private JSONArray _calendars = null;
+	private Event[] _events;
 
 	public Storage() {
 		try {
@@ -15,7 +18,15 @@ public class Storage {
 
 		try {
 			JSONObject calendar = _calendars.getJSONObject(0);
-			System.out.println(calendar.getString("name"));
+			JSONArray events = calendar.getJSONArray("events");
+			_events = new Event[events.length()];
+
+			for (int i = 0; i < events.length(); i++) {
+				_events[i] = Event.fromJSONObject(events.getJSONObject(i));
+			}
+
+			System.out.println("number of events: " + _events.length);
+			System.out.println("first event begins: " + _events[0].begin.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
