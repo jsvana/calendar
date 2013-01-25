@@ -83,7 +83,13 @@ public class Event {
 
 		@Override
 		public String toString() {
-			return this.hour + ":" + this.minute;
+			String minute = "" + this.minute;
+
+			if (minute.length() == 1) {
+				minute = "0" + minute;
+			}
+
+			return this.hour + ":" + minute;
 		}
 	}
 
@@ -108,8 +114,6 @@ public class Event {
 			if (daysBetween < 0) {
 				return false;
 			}
-
-			System.out.println("days: " + daysBetween);
 
 			for (int i = 0; i < this.days.length; i++) {
 				if (this.days[i] == daysBetween) {

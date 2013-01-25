@@ -24,8 +24,6 @@ public class Storage {
 			for (int i = 0; i < events.length(); i++) {
 				_events[i] = Event.fromJSONObject(events.getJSONObject(i));
 			}
-
-			System.out.println("number of events: " + _events.length);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -59,10 +57,20 @@ public class Storage {
 	public void getEvent(int year, int month, int day) {
 		Event.Date date = new Event.Date(year, month, day);
 
+		System.out.println("Events for " + day + " " + Event.Date.MONTHS[month]
+			+ " " + year);
+
+		int ctr = 0;
+
 		for (Event event : _events) {
 			if (event.occursOn(date)) {
 				System.out.println(event.toString());
+				++ctr;
 			}
+		}
+
+		if (ctr == 0) {
+			System.out.println("No events.");
 		}
 	}
 
