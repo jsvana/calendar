@@ -57,11 +57,19 @@ public class Storage {
 		}
 	}
 
-	public void getEvent(String year, String month, String day) {
+	public void getEvent(int year, int month, int day) {
+		Event.Date date = new Event.Date(year, month, day);
 
+		for (Event event : _events) {
+			if (event.occursOn(date)) {
+				System.out.println(event.toString());
+			}
+		}
 	}
 
 	public static void main(String[] args) {
 		Storage store = new Storage();
+
+		store.getEvent(2013, 1, 1);
 	}
 }

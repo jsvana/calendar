@@ -12,13 +12,15 @@ public class Event {
 	public Date[] except;
 
 	public static class Date {
+		public int year;
 		public int month;
 		public int day;
 		public static final String[] MONTHS = new String[] {"January", "February",
 			"March", "April", "May", "June", "July", "August", "September", "October",
 			"November", "December"};
 
-		public Date(int month, int day) {
+		public Date(int year, int month, int day) {
+			this.year = year;
 			this.month = month;
 			this.day = day;
 		}
@@ -38,15 +40,13 @@ public class Event {
 			}
 
 			Date date = (Date)other;
-			this.month = date.month;
-			this.day = date.day;
-
-			return true;
+			return this.year == date.year && this.month == date.month
+				&& this.day == date.day;
 		}
 
 		@Override
 		public String toString() {
-			return this.day + " " + MONTHS[this.month];
+			return this.day + " " + MONTHS[this.month] + " " + this.year;
 		}
 	}
 
@@ -73,16 +73,30 @@ public class Event {
 				return false;
 			}
 
-			Time date = (Time)other;
-			this.hour = date.hour;
-			this.minute = date.minute;
+			Time time = (Time)other;
 
-			return true;
+			return this.hour == time.hour && this.minute == time.minute;
 		}
 
 		@Override
 		public String toString() {
 			return this.hour + ":" + this.minute;
+		}
+	}
+
+	public boolean occursOn(Date date) {
+		if (this.begin.equals(date)) {
+			return true;
+		}
+
+		if (this.repeat) {
+			if (this.end.equals(date)) {
+				return true;
+			}
+
+			// Determine if it happens on a repeated day
+		} else {
+			return false;
 		}
 	}
 
@@ -95,7 +109,8 @@ public class Event {
 			event.name = json.getString("name");
 
 			JSONObject begin = json.getJSONObject("begin");
-			event.begin = new Event.Date(begin.getInt("month"), begin.getInt("day"));
+			event.begin = new Event.Date(begin.getInt("year"), begin.getInt("month"),
+				begin.getInt("day"));
 
 			event.repeat = json.getBoolean("repeat");
 
@@ -107,14 +122,15 @@ public class Event {
 				}
 
 				JSONObject end = json.getJSONObject("end");
-				event.end = new Event.Date(end.getInt("month"), end.getInt("day"));
+				event.end = new Event.Date(end.getInt("year"), end.getInt("month"),
+					end.getInt("day"));
 
 				JSONArray except = json.getJSONArray("except");
 				event.except = new Event.Date[except.length()];
 				for (i = 0; i < except.length(); i++) {
 					JSONObject next = except.getJSONObject(i);
-					event.except[i] = new Event.Date(next.getInt("month"),
-						next.getInt("day"));
+					event.except[i] = new Event.Date(next.getInt("year"),
+						next.getInt("month"), next.getInt("day"));
 				}
 			}
 
