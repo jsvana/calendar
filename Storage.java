@@ -26,7 +26,6 @@ public class Storage {
 			}
 
 			System.out.println("number of events: " + _events.length);
-			System.out.println("first event begins: " + _events[0].begin.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}

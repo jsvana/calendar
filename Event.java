@@ -1,5 +1,8 @@
 import org.json.*;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 public class Event {
 	public String name;
 	public Date begin;
@@ -94,10 +97,35 @@ public class Event {
 				return true;
 			}
 
-			// Determine if it happens on a repeated day
+			GregorianCalendar one = new GregorianCalendar();
+			GregorianCalendar two = new GregorianCalendar();
+			one.set(this.begin.year, this.begin.month + 1, this.begin.day);
+			two.set(date.year, date.month + 1, date.day);
+
+			int daysBetween = (int)((two.getTime().getTime()
+				- one.getTime().getTime()) / (1000 * 60 * 60 * 24)) % 7;
+
+			if (daysBetween < 0) {
+				return false;
+			}
+
+			System.out.println("days: " + daysBetween);
+
+			for (int i = 0; i < this.days.length; i++) {
+				if (this.days[i] == daysBetween) {
+					return true;
+				}
+			}
+
+			return false;
 		} else {
 			return false;
 		}
+	}
+
+	@Override
+	public String toString() {
+		return this.name + " at " + this.beginTime.toString();
 	}
 
 	public static Event fromJSONObject(JSONObject json) {
